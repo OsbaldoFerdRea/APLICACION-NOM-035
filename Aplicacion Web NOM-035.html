@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Implementación de la NOM-035</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+    header {
+      background-color: #1f3b73;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    nav {
+      background-color: #2e4a7d;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+    }
+    section {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .card {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+    }
+    .icon-list i {
+      margin-right: 10px;
+      color: #1f3b73;
+    }
+    form input, form select, form textarea {
+      width: 100%;
+      margin: 10px 0;
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    form button {
+      background: #1f3b73;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    footer {
+      background-color: #1f3b73;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Implementación de la NOM-035 en el Trabajo</h1>
+    <p>Promoviendo entornos organizacionales saludables y productivos</p>
+  </header>
+  <nav>
+    <a href="#que-es">¿Qué es la NOM-035?</a>
+    <a href="#evaluacion">Evaluación</a>
+    <a href="#medidas">Medidas</a>
+    <a href="#recursos">Recursos</a>
+  </nav>
+
+  <section id="que-es">
+    <div class="card">
+      <h2>¿Qué es la NOM-035?</h2>
+      <p>La NOM-035 tiene como objetivo identificar, analizar y prevenir los factores de riesgo psicosocial en el trabajo.</p>
+      <ul class="icon-list">
+        <li><i class="fas fa-bolt"></i> Estrés laboral</li>
+        <li><i class="fas fa-users"></i> Acoso y violencia</li>
+        <li><i class="fas fa-clock"></i> Jornadas laborales excesivas</li>
+      </ul>
+      <button onclick="window.open('https://www.dof.gob.mx/nota_detalle.php?codigo=5541828&fecha=23/10/2018')">Ver Norma Oficial</button>
+    </div>
+  </section>
+
+  <section id="evaluacion">
+    <div class="card">
+      <h2>Evaluación de Riesgos</h2>
+      <form onsubmit="mostrarRecomendaciones(event)">
+        <label>Nombre del centro de trabajo:</label>
+        <input type="text" required>
+        <label>Número de empleados:</label>
+        <input type="number" required>
+        <label>Tipo de jornada:</label>
+        <select>
+          <option>Diurna</option>
+          <option>Nocturna</option>
+          <option>Mixta</option>
+        </select>
+        <label>Tamaño del centro:</label>
+        <select id="tamano">
+          <option>Micro</option>
+          <option>Pequeño</option>
+          <option>Mediano</option>
+          <option>Grande</option>
+        </select>
+        <button type="submit">Generar Recomendaciones</button>
+      </form>
+      <div id="recomendaciones"></div>
+    </div>
+  </section>
+
+  <section id="medidas">
+    <div class="card">
+      <h2>Medidas Preventivas</h2>
+      <canvas id="grafico"></canvas>
+    </div>
+  </section>
+
+  <section id="recursos">
+    <div class="card">
+      <h2>Recursos y Contacto</h2>
+      <p><a href="https://www.gob.mx/stps/documentos/guia-de-referencia-nom-035">Descargar Guías de Referencia</a></p>
+      <form>
+        <label>Nombre:</label>
+        <input type="text">
+        <label>Correo electrónico:</label>
+        <input type="email">
+        <label>Mensaje:</label>
+        <textarea rows="4"></textarea>
+        <button>Enviar</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Implementación NOM-035. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    function mostrarRecomendaciones(e) {
+      e.preventDefault();
+      const tamano = document.getElementById('tamano').value;
+      let mensaje = '';
+      switch(tamano) {
+        case 'Micro': mensaje = 'Aplica Guía I. Concéntrate en eventos traumáticos severos.'; break;
+        case 'Pequeño': mensaje = 'Aplica Guía I y II. Evalúa condiciones organizacionales.'; break;
+        case 'Mediano': mensaje = 'Aplica Guías I, II y opcionalmente V.'; break;
+        case 'Grande': mensaje = 'Aplica Guías I, III y opcionalmente V.'; break;
+      }
+      document.getElementById('recomendaciones').innerHTML = `<p><strong>Recomendación:</strong> ${mensaje}</p>`;
+    }
+
+    const ctx = document.getElementById('grafico');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Estrés', 'Violencia', 'Falta de apoyo', 'Carga laboral'],
+        datasets: [{
+          label: 'Impacto Reducido (%)',
+          data: [70, 50, 60, 80],
+          backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } }
+      }
+    });
+  </script>
+</body>
+</html>
